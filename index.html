@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>For You 💖</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+<style>
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:'Poppins',sans-serif;
+}
+
+body{
+    height:100vh;
+    background:linear-gradient(135deg,#ff758c,#ff7eb3,#ffb199);
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    overflow:hidden;
+    color:white;
+}
+
+/* Glass Card */
+.card{
+    width:90%;
+    max-width:400px;
+    padding:30px;
+    border-radius:25px;
+    background:rgba(255,255,255,0.15);
+    backdrop-filter:blur(15px);
+    text-align:center;
+    box-shadow:0 8px 32px rgba(0,0,0,0.2);
+    animation:fadeIn 1.5s ease;
+}
+
+.hidden{display:none;}
+
+input{
+    width:100%;
+    padding:12px;
+    border-radius:20px;
+    border:none;
+    margin-top:15px;
+    text-align:center;
+}
+
+button{
+    margin-top:15px;
+    padding:10px 20px;
+    border:none;
+    border-radius:20px;
+    background:white;
+    color:#ff4d88;
+    font-weight:600;
+    cursor:pointer;
+    transition:.3s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.gift{
+    font-size:90px;
+    cursor:pointer;
+    animation:zoom 1.5s infinite;
+}
+
+@keyframes zoom{
+    0%,100%{transform:scale(1);}
+    50%{transform:scale(1.1);}
+}
+
+@keyframes fadeIn{
+    from{opacity:0; transform:translateY(20px);}
+    to{opacity:1; transform:translateY(0);}
+}
+
+.heart{
+    position:absolute;
+    font-size:18px;
+    animation:float 6s linear infinite;
+}
+
+@keyframes float{
+    from{transform:translateY(100vh);}
+    to{transform:translateY(-10vh);}
+}
+
+.coupon{
+    background:white;
+    color:#ff4d88;
+    padding:12px;
+    border-radius:15px;
+    margin-top:10px;
+    cursor:pointer;
+    font-weight:600;
+    transition:.3s;
+}
+
+.coupon:hover{
+    background:#ff4d88;
+    color:white;
+}
+
+.profile{
+    width:120px;
+    height:120px;
+    object-fit:cover;
+    border-radius:50%;
+    margin:15px auto;
+    display:block;
+    box-shadow:0 10px 25px rgba(0,0,0,0.25);
+    border:3px solid rgba(255,255,255,0.6);
+    animation:fadeIn 1.2s ease;
+}
+
+</style>
+</head>
+<body>
+
+<audio id="music" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-2.mp3"></audio>
+
+<!-- LOGIN -->
+<div class="card" id="login">
+    <h2>🔐 Enter Password</h2>
+    <input type="password" id="pass" placeholder="Hint: Tanggal, Bulan, Tahun Pertama Kali Kita Chatan Hehe">
+    <button onclick="login()">Unlock 💌</button>
+    <p id="error"></p>
+</div>
+
+<!-- GIFT -->
+<div class="card hidden" id="giftPage">
+    <h2>🎁 For You</h2>
+    <p>Klik kadonya boss</p>
+    <div class="gift" onclick="openGift()">🎁</div>
+</div>
+
+<!-- MAIN -->
+<div class="card hidden" id="main">
+    <h2>🎂 Happy Birthday Febyy 🎂</h2>
+    <img src="foto.png" alt="Foto Kamu" class="profile">
+    <div style="font-size:80px;">🎂</div>
+    <p>Klik lilin buat tiup 🕯</p>
+    <div onclick="blow()" style="font-size:35px; cursor:pointer;">🕯</div>
+
+    <button onclick="gift('hug')">🤗 Hug</button>
+    <button onclick="gift('kiss')">😘 Kiss</button>
+    <p id="giftText"></p>
+
+    <h4 style="margin-top:15px;">💌 Besok bareng aku yayaa</h4>
+    <button onclick="alert('See you besokk, jangan keras keras ya kan aku takut')">Yes 😍</button>
+    <button id="noBtn" onmouseover="moveBtn()">No 😜</button>
+
+    <h4 style="margin-top:15px;">🎫 Love Coupon</h4>
+    <div class="coupon" onclick="claim(this)">Free Hug Unlimited</div>
+    <div class="coupon" onclick="claim(this)">Free Kiss 1x</div>
+</div>
+
+<script>
+const password = "13 November 2025";
+
+function login(){
+    const input = document.getElementById("pass").value.trim();
+    const loginPage = document.getElementById("login");
+    const giftPage = document.getElementById("giftPage");
+    const errorText = document.getElementById("error");
+
+    if(input === password){
+        loginPage.classList.add("hidden");
+        giftPage.classList.remove("hidden");
+    } else {
+        errorText.textContent = "Wrong password";
+    }
+}
+
+function openGift(){
+    document.getElementById("giftPage").classList.add("hidden");
+    document.getElementById("main").classList.remove("hidden");
+    document.getElementById("music").play();
+    floatingHearts();
+}
+
+function blow(){
+    alert("Make a wish.");
+}
+
+function gift(type){
+    const giftText = document.getElementById("giftText");
+    giftText.textContent = type==="hug" 
+        ? "You unlocked: 1 Hug"
+        : "You unlocked: 1 Kiss";
+}
+
+function moveBtn(){
+    const btn=document.getElementById("noBtn");
+    btn.style.position="absolute";
+    btn.style.left=Math.random()*80+"vw";
+    btn.style.top=Math.random()*80+"vh";
+}
+
+function claim(el){
+    el.textContent="Claimed";
+    el.style.background="#ff4d88";
+    el.style.color="white";
+}
+
+function floatingHearts(){
+    setInterval(()=>{
+        let h=document.createElement("div");
+        h.classList.add("heart");
+        h.innerHTML="💖";
+        h.style.left=Math.random()*100+"vw";
+        h.style
+}
+</script>
+
+</body>
+</html>
