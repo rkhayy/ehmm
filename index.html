@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Encrypted Love System</title>
+
+<style>
+body{
+  background:black;
+  color:#00ff88;
+  font-family:"Courier New", monospace;
+  margin:0;
+  padding:40px;
+  overflow:hidden;
+}
+
+#terminal{
+  white-space:pre-line;
+  font-size:18px;
+}
+
+input, button{
+  background:black;
+  border:1px solid #00ff88;
+  color:#00ff88;
+  padding:8px;
+  margin-top:10px;
+}
+
+button:hover{
+  background:#00ff88;
+  color:black;
+}
+
+@keyframes shake{
+  0%{transform:translate(0);}
+  25%{transform:translate(-5px,5px);}
+  50%{transform:translate(5px,-5px);}
+  75%{transform:translate(-5px,-5px);}
+  100%{transform:translate(0);}
+}
+
+.shake{
+  animation:shake 0.4s;
+}
+</style>
+</head>
+
+<body>
+
+<div id="terminal"></div>
+<div id="login" style="display:none;">
+  <p>Password Hint: tanggal, bulan, dan tahun pertama kita chatan </p>
+  <input type="password" id="pass">
+  <button onclick="checkPass()">Decrypt</button>
+</div>
+
+<script>
+const text=`Booting birthday_protocol.exe
+Scanning target...
+Target found: FEBY RACHMA
+Age: 17
+Status: irreplaceable.
+Encrypting feelings...
+`;
+
+let i=0;
+function type(){
+  if(i<text.length){
+    document.getElementById("terminal").innerHTML+=text.charAt(i);
+    i++;
+    setTimeout(type,25);
+  }else{
+    document.getElementById("login").style.display="block";
+  }
+}
+type();
+
+function checkPass(){
+  const input=document.getElementById("pass").value;
+  if(input==="13 November 2025"){
+    document.body.classList.add("shake");
+    document.getElementById("terminal").innerHTML+="\nACCESS GRANTED.";
+    setTimeout(()=>{
+      window.location.href="surprise.html";
+    },1000);
+  }else{
+    document.getElementById("terminal").innerHTML+="\nACCESS DENIED.";
+  }
+}
+</script>
+
+</body>
+</html>
