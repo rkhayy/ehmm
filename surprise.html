@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>System Decrypted</title>
+
+<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+
+<style>
+body{
+  margin:0;
+  background:black;
+  color:white;
+  text-align:center;
+  font-family:Georgia, serif;
+  overflow:hidden;
+}
+
+h1{
+  color:#ff003c;
+  text-shadow:0 0 20px #ff003c;
+}
+
+img{
+  width:280px;
+  margin-top:20px;
+  border-radius:15px;
+  filter:blur(15px);
+  opacity:0;
+  transform:scale(0.8);
+  transition:4s ease;
+  box-shadow:0 0 50px #ff003c;
+}
+
+.message{
+  margin-top:30px;
+  max-width:650px;
+  margin-left:auto;
+  margin-right:auto;
+  line-height:1.9;
+  font-size:18px;
+  opacity:0;
+  transition:3s ease;
+}
+
+.locked-box{
+  margin-top:40px;
+}
+
+.open-btn{
+  padding:15px 30px;
+  border:2px solid #ff003c;
+  color:#ff003c;
+  cursor:pointer;
+  box-shadow:0 0 20px #ff003c;
+  transition:0.3s;
+}
+
+.open-btn:hover{
+  background:#ff003c;
+  color:black;
+}
+
+.coupon{
+  display:inline-block;
+  margin:15px;
+  padding:15px 25px;
+  border:2px solid #ff003c;
+  color:#ff003c;
+  cursor:pointer;
+  box-shadow:0 0 15px #ff003c;
+  transition:0.3s;
+}
+
+.coupon:hover{
+  background:#ff003c;
+  color:black;
+  box-shadow:0 0 30px #ff003c;
+}
+
+.hidden{display:none;}
+
+@keyframes shake{
+  0%{transform:translate(0);}
+  25%{transform:translate(-5px,5px);}
+  50%{transform:translate(5px,-5px);}
+  75%{transform:translate(-5px,-5px);}
+  100%{transform:translate(0);}
+}
+
+.shake{animation:shake 0.4s;}
+
+.rain{
+  position:fixed;
+  width:2px;
+  height:15px;
+  background:#333;
+  top:-20px;
+  animation:rain 1s linear infinite;
+}
+
+@keyframes rain{
+  to{transform:translateY(110vh);}
+}
+
+.final-line{
+  margin-top:50px;
+  font-size:22px;
+  color:#ff003c;
+  text-shadow:0 0 20px #ff003c;
+  opacity:0;
+  transition:3s ease;
+}
+</style>
+</head>
+
+<body>
+
+<audio autoplay loop>
+  <source src="lagu.mp3" type="audio/mpeg">
+</audio>
+
+<h1>Target Confirmed 🖤</h1>
+
+<img src="foto.png" id="photo">
+
+<div class="message" id="text">
+Selamat 17 tahun, Ka Febb.<br><br>
+Di antara miliaran manusia,<br>
+aku tetap milih kamu.<br><br>
+Dan aku punya sesuatuu…<br>
+hadiah ini cuma buat kamu.
+</div>
+
+<div class="locked-box" id="locked">
+  <div class="open-btn" onclick="openGift()">🎁 Open Birthday Gift</div>
+</div>
+
+<div id="gift" class="hidden">
+  <div class="coupon" onclick="claim('kiss')">💋 FREE DARK KISS</div>
+  <div class="coupon" onclick="claim('hug')">🤗 FREE HUG</div>
+  <div class="coupon" onclick="claim('play')">Pulang Bareng Besok?</div>
+</div>
+
+<div class="final-line" id="final">
+Stay with me at 17… and beyond. 🖤
+</div>
+
+<script>
+setTimeout(()=>{
+  const p=document.getElementById("photo");
+  p.style.opacity="1";
+  p.style.filter="blur(0)";
+  p.style.transform="scale(1)";
+},1500);
+
+setTimeout(()=>{
+  document.getElementById("text").style.opacity="1";
+},3500);
+
+function openGift(){
+  document.body.classList.add("shake");
+  confetti({particleCount:300,spread:120,origin:{y:0.6}});
+  document.getElementById("locked").style.display="none";
+  document.getElementById("gift").classList.remove("hidden");
+  setTimeout(()=>{
+    document.getElementById("final").style.opacity="1";
+  },4000);
+}
+
+function claim(type){
+  confetti({particleCount:200,spread:100,origin:{y:0.6}});
+  if(type==="kiss"){
+    alert("Dark Kiss Claimed 🖤 (Redeem langsung ke aku sini)");
+  }
+  if(type==="hug"){
+    alert("Unlimited Hug Activated 🤗");
+  }
+  if(type==="play"){
+    alert("Besok pulang latihan sama aku ya? hehe");
+  }
+}
+
+function createRain(){
+  const rain=document.createElement("div");
+  rain.classList.add("rain");
+  rain.style.left=Math.random()*100+"vw";
+  rain.style.animationDuration=(Math.random()*0.5+0.5)+"s";
+  document.body.appendChild(rain);
+  setTimeout(()=>{rain.remove();},1000);
+}
+setInterval(createRain,40);
+</script>
+
+</body>
+</html>
